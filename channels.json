@@ -242,7 +242,7 @@
     "tvg_id": "",
     "logo": "https://assets-prod.services.toffeelive.com/f_png,w_300,q_85/wCM3l5sBEef-9-uVXFvD/posters/d80f7aee-5bd7-4edc-97eb-ead0e3ebbe09.png",
     "group": "BANGLADESH",
-    "url": "http://sm-monirul.top/@monirul_Islam_SM/proxy.php?id=ananda_tv&format=.m3u8"
+    "url": "https://tvsen6.aynaott.com/LeUAm4F1iixYns3s3Non/tracks-v1a1/mono.ts.m3u8"
   },
   {
     "name": "Deepto TV",
@@ -361,7 +361,7 @@
     "tvg_id": "",
     "logo": "https://assets-prod.services.toffeelive.com/f_png,w_300,q_85/CXz4PJwBcqxnFHJBPwrG/posters/2f913e34-3a6c-45e6-9f1f-97bf129a2ff5.png",
     "group": "BANGLADESH",
-    "url": "https://app24.jagobd.com.bd/c3VydmVyX8RpbEU9Mi8xNy8yMFDEEHGcfRgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcEdsEfeDeKiNkVN3PTOmdFseWRtaW51aiPhnPTI2/moviebanglalink2.stream/tracks-v1a1/mono.m3u8"
+    "url": "https://stream.ottplus.live/live/movie_bangla_abr/index.m3u8"
   },
   {
     "name": "Ruposhi Bangla",
@@ -383,13 +383,6 @@
     "logo": "https://www.metvbd.com/media/common/logo-fb.png",
     "group": "BANGLADESH",
     "url": "https://iptvbd.live/metv1080/1080.m3u8"
-  },
-  {
-    "name": "Bhi Channel",
-    "tvg_id": "",
-    "logo": "https://static.wikia.nocookie.net/etv-gspn-bangla/images/e/ec/BHI_Channel_logo.png",
-    "group": "BANGLADESH",
-    "url": "http://15.235.185.236/hls/bhi.m3u8"
   },
   {
     "name": "TBN 24",
@@ -458,13 +451,6 @@
     "name": "Nick Bangla",
     "tvg_id": "",
     "logo": "https://otapp.store/uploads/tv_image/sm/nick-bangla.png",
-    "group": "KIDS",
-    "url": "#https://madanitv.assadikb.workers.dev/live.php?id=1341&e=.m3u8"
-  },
-  {
-    "name": "Nickelodeon",
-    "tvg_id": "",
-    "logo": "https://i2-prod.mirror.co.uk/article33809942.ece/ALTERNATES/s1200f/2_nickelodeon_old_logo.png",
     "group": "KIDS",
     "url": "#https://madanitv.assadikb.workers.dev/live.php?id=1341&e=.m3u8"
   },
@@ -949,21 +935,21 @@
     "tvg_id": "",
     "logo": "https://i.postimg.cc/SRKS6TwR/20240823_022008.png",
     "group": "HINDI MUSIC",
-    "url": "Click the link below to play the video: https://jioplaylistdown.yecic62314.workers.dev/live.m3u8?id=587"
+    "url": "https://jioplaylistdown.yecic62314.workers.dev/live.m3u8?id=587"
   },
   {
     "name": "E24",
     "tvg_id": "",
     "logo": "https://i.ibb.co/dbjnG3X/20240803-105403.png",
     "group": "HINDI MUSIC",
-    "url": "Click the link below to play the video: https://jioplaylistdown.yecic62314.workers.dev/live.m3u8?id=591"
+    "url": "https://jioplaylistdown.yecic62314.workers.dev/live.m3u8?id=591"
   },
   {
     "name": "Music India",
     "tvg_id": "",
     "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKyMNNb_SRC2dnm7IW84llAJ9aO5Zb7V4jdjHaweOo58tzrc9pSsRv85-TZD1w4L57nc4&usqp=CAU",
     "group": "HINDI MUSIC",
-    "url": "Click the link below to play the video: https://jioplaylistdown.yecic62314.workers.dev/live.m3u8?id=250"
+    "url": "https://jioplaylistdown.yecic62314.workers.dev/live.m3u8?id=250"
   },
   {
     "name": "Hindi Hits HD",
