@@ -455,13 +455,6 @@
     "url": "#https://madanitv.assadikb.workers.dev/live.php?id=1341&e=.m3u8"
   },
   {
-    "name": "Nikki HD",
-    "tvg_id": "",
-    "logo": "https://tstatic.akash-go.com/cms-ui/images/custom-content/1778083459294.png",
-    "group": "KIDS",
-    "url": "https://nomawnoijl.gpcdn.net/akash/nikky/playlist.m3u8"
-  },
-  {
     "name": "Discovery Kids",
     "tvg_id": "",
     "logo": "https://i.postimg.cc/wTvMLMp2/20240823_021706.png",
@@ -662,7 +655,7 @@
     "tvg_id": "",
     "logo": "https://otapp.store/uploads/tv_image/sm/sangeet-bangla.png",
     "group": "BANGLA MUSIC",
-    "url": "http://mag.king-4k.cc/C1645263A1D245C/1sFTVBSVCP/63393"
+    "url": "https://cdn-4.pishow.tv/live/1143/master.m3u8"
   },
   {
     "name": "Zoom",
@@ -676,7 +669,7 @@
     "tvg_id": "",
     "logo": "https://otapp.store/uploads/tv_image/sm/dhoom-music-bangla.png",
     "group": "BANGLA MUSIC",
-    "url": "Click the link below to play the video: https://jioplaylistdown.yecic62314.workers.dev/live.m3u8?id=3006"
+    "url": "https://jioplaylistdown.yecic62314.workers.dev/live.m3u8?id=3006"
   },
   {
     "name": "TV9 Bangla",
@@ -756,13 +749,6 @@
     "url": "https://streams2.sofast.tv/sofastplayout/WiseM3U8_1/master.m3u8"
   },
   {
-    "name": "Joy HD",
-    "tvg_id": "",
-    "logo": "https://tstatic.akash-go.com/cms-ui/images/custom-content/1770378874717.png",
-    "group": "",
-    "url": "https://nomawnoijl.gpcdn.net/akash/joy/playlist.m3u8"
-  },
-  {
     "name": "Funny Junior HD",
     "tvg_id": "",
     "logo": "https://tstatic.akash-go.com/cms-ui/images/custom-content/1770379573329.png",
@@ -795,7 +781,7 @@
     "tvg_id": "",
     "logo": "https://images.toffeelive.com/images/program/2429/logo/240x240/mobile_logo_009938001674474908.png",
     "group": "DOCUMENTARY",
-    "url": "https://live.thebosstv.com:30443/dwlive/HISTORY/playlist.m3u8"
+    "url": "https://n18syndication.akamaized.net/bpk-tv/History_TV18_Hindi_NW18_MOB/output01/master.m3u8"
   },
   {
     "name": "Travel XP English",
@@ -851,7 +837,7 @@
     "tvg_id": "",
     "logo": "https://assets-prod.services.toffeelive.com/7x0Jd5YBEef-9-uVv_Gy/posters/f630a176-73cc-48d7-94cf-69ba0d201b36.png",
     "group": "HINDI MOVIE",
-    "url": "http://103.175.73.12:8080/live/256/256_0.m3u8"
+    "url": "http://rgkkw.live:80/live/1Aoen7elp5/IgMJ60tmAa/203.ts"
   },
   {
     "name": "Sony Max",
@@ -866,13 +852,6 @@
     "logo": "https://i.ibb.co/KjjqnRH/Picsart-23-06-30-21-35-20-283.png",
     "group": "HINDI MOVIE",
     "url": "https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg00864-shemarooenterta-shemabollywood-ono/playlist.m3u8"
-  },
-  {
-    "name": "Goldmines Bollywood",
-    "tvg_id": "",
-    "logo": "https://bugsfreeweb.github.io/LiveTVCollector/BugsfreeLogo/default-logo.png",
-    "group": "HINDI MOVIE",
-    "url": "http://103.175.73.12:8080/live/52/52_0.m3u8"
   },
   {
     "name": "Hindi Movies 3",
@@ -914,14 +893,14 @@
     "tvg_id": "",
     "logo": "https://assets-prod.services.toffeelive.com/Pc3RD5YBtpl-Sbt7doxr/posters/d0f337ab-a7e6-4eed-bc7b-7d51fdc70a0f.png",
     "group": "HINDI MOVIE",
-    "url": "http://103.175.73.12:8080/live/270/270_0.m3u8"
+    "url": "http://rgkkw.live:80/live/1Aoen7elp5/IgMJ60tmAa/967.ts"
   },
   {
     "name": "Big Magic",
     "tvg_id": "",
     "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWZvoj7sQem7dOoLMmPtCzKgSxaHVEJi6L6uBRFeJ33gfyFug_Yh96Z1U&s=10",
     "group": "HINDI",
-    "url": "http://103.175.73.12:8080/live/13/13_0.m3u8"
+    "url": "http://rgkkw.live:80/live/1Aoen7elp5/IgMJ60tmAa/355253.ts"
   },
   {
     "name": "B4U Movies",
