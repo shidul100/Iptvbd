@@ -342,9 +342,7 @@ video {
 
 </head>
 
-
 <body>
-
 
 <!-- =======================================================
      HEADER
@@ -392,14 +390,12 @@ video {
             preload="metadata"
         ></video>
 
-
         <div
             class="player-status"
             id="playerStatus"
         >
             Loading...
         </div>
-
 
         <div
             class="live-badge"
@@ -409,7 +405,6 @@ video {
         </div>
 
     </div>
-
 
     <div
         class="now-playing"
@@ -431,7 +426,6 @@ video {
             📱 Browser cannot play this stream
         </div>
 
-
         <div class="external-buttons">
 
             <button
@@ -441,7 +435,6 @@ video {
                 ▶ Open Player
             </button>
 
-
             <button
                 class="external-btn btn-intent"
                 id="androidIntentBtn"
@@ -449,14 +442,12 @@ video {
                 📱 Android Player
             </button>
 
-
             <button
                 class="external-btn btn-new"
                 id="openNewTabBtn"
             >
                 🌐 Open URL
             </button>
-
 
             <button
                 class="external-btn btn-copy"
@@ -466,7 +457,6 @@ video {
             </button>
 
         </div>
-
 
         <div class="external-help">
             If your browser does not automatically open a
@@ -487,7 +477,6 @@ video {
     Loading channels...
 </div>
 
-
 <div id="error">
     Unable to load playlist.
 </div>
@@ -502,7 +491,6 @@ video {
 
 <script>
 
-
 /* =========================================================
    PLAYLIST
 ========================================================= */
@@ -516,74 +504,46 @@ const PLAYLIST_URL =
 ========================================================= */
 
 const video =
-document.getElementById(
-    "videoPlayer"
-);
+document.getElementById("videoPlayer");
 
 const grid =
-document.getElementById(
-    "channelGrid"
-);
+document.getElementById("channelGrid");
 
 const search =
-document.getElementById(
-    "search"
-);
+document.getElementById("search");
 
 const loading =
-document.getElementById(
-    "loading"
-);
+document.getElementById("loading");
 
 const errorBox =
-document.getElementById(
-    "error"
-);
+document.getElementById("error");
 
 const nowPlaying =
-document.getElementById(
-    "nowPlaying"
-);
+document.getElementById("nowPlaying");
 
 const categoriesBox =
-document.getElementById(
-    "categories"
-);
+document.getElementById("categories");
 
 const playerStatus =
-document.getElementById(
-    "playerStatus"
-);
+document.getElementById("playerStatus");
 
 const liveBadge =
-document.getElementById(
-    "liveBadge"
-);
+document.getElementById("liveBadge");
 
 const externalPlayerBox =
-document.getElementById(
-    "externalPlayerBox"
-);
+document.getElementById("externalPlayerBox");
 
 const openDefaultBtn =
-document.getElementById(
-    "openDefaultBtn"
-);
+document.getElementById("openDefaultBtn");
 
 const androidIntentBtn =
-document.getElementById(
-    "androidIntentBtn"
-);
+document.getElementById("androidIntentBtn");
 
 const openNewTabBtn =
-document.getElementById(
-    "openNewTabBtn"
-);
+document.getElementById("openNewTabBtn");
 
 const copyUrlBtn =
-document.getElementById(
-    "copyUrlBtn"
-);
+document.getElementById("copyUrlBtn");
 
 
 /* =========================================================
@@ -613,12 +573,9 @@ async function loadPlaylist() {
 
     try {
 
-        loading.style.display =
-        "block";
+        loading.style.display = "block";
 
-        errorBox.style.display =
-        "none";
-
+        errorBox.style.display = "none";
 
         const response =
         await fetch(
@@ -630,7 +587,6 @@ async function loadPlaylist() {
             }
         );
 
-
         if (!response.ok) {
 
             throw new Error(
@@ -639,20 +595,13 @@ async function loadPlaylist() {
 
         }
 
-
         const text =
         await response.text();
 
-
         channels =
-        parseM3U(
-            text
-        );
+        parseM3U(text);
 
-
-        loading.style.display =
-        "none";
-
+        loading.style.display = "none";
 
         if (!channels.length) {
 
@@ -665,7 +614,6 @@ async function loadPlaylist() {
             return;
         }
 
-
         createCategories();
 
         renderChannels();
@@ -676,14 +624,11 @@ async function loadPlaylist() {
 
         console.error(err);
 
-
         loading.style.display =
         "none";
 
-
         errorBox.innerText =
         "Playlist load failed.";
-
 
         errorBox.style.display =
         "block";
@@ -701,22 +646,16 @@ function parseM3U(text) {
     const lines =
     text
     .split(/\r?\n/)
-    .map(
-        line =>
-        line.trim()
-    )
+    .map(line => line.trim())
     .filter(Boolean);
 
-
     const result = [];
-
 
     for (
         let i = 0;
         i < lines.length;
         i++
     ) {
-
 
         if (
             !lines[i]
@@ -728,13 +667,10 @@ function parseM3U(text) {
 
         }
 
-
         const info =
         lines[i];
 
-
         let url = "";
-
 
         for (
             let j = i + 1;
@@ -742,10 +678,8 @@ function parseM3U(text) {
             j++
         ) {
 
-
             if (
-                !lines[j]
-                .startsWith("#")
+                !lines[j].startsWith("#")
             ) {
 
                 url =
@@ -757,45 +691,33 @@ function parseM3U(text) {
 
         }
 
-
         if (!url) {
-
             continue;
-
         }
-
 
         let name =
         info.substring(
             info.lastIndexOf(",") + 1
         ).trim();
 
-
         if (!name) {
-
-            name =
-            "Unknown Channel";
-
+            name = "Unknown Channel";
         }
-
 
         const logoMatch =
         info.match(
             /tvg-logo="([^"]*)"/i
         );
 
-
         const logo =
         logoMatch
         ? logoMatch[1]
         : "";
 
-
         const groupMatch =
         info.match(
             /group-title="([^"]*)"/i
         );
-
 
         const group =
         groupMatch &&
@@ -803,18 +725,15 @@ function parseM3U(text) {
         ? groupMatch[1]
         : "OTHER";
 
-
         const idMatch =
         info.match(
             /tvg-id="([^"]*)"/i
         );
 
-
         const id =
         idMatch
         ? idMatch[1]
         : "";
-
 
         result.push({
 
@@ -827,7 +746,6 @@ function parseM3U(text) {
         });
 
     }
-
 
     return result;
 }
@@ -850,15 +768,9 @@ function createCategories() {
         )
     ];
 
+    categoriesBox.innerHTML = "";
 
-    categoriesBox.innerHTML =
-    "";
-
-
-    addCategoryButton(
-        "ALL"
-    );
-
+    addCategoryButton("ALL");
 
     groups.forEach(
         group => {
@@ -872,15 +784,10 @@ function createCategories() {
 }
 
 
-function addCategoryButton(
-    category
-) {
+function addCategoryButton(category) {
 
     const button =
-    document.createElement(
-        "button"
-    );
-
+    document.createElement("button");
 
     button.className =
     "category-btn" +
@@ -890,17 +797,14 @@ function addCategoryButton(
         : ""
     );
 
-
     button.textContent =
     category;
-
 
     button.onclick =
     function() {
 
         currentCategory =
         category;
-
 
         document
         .querySelectorAll(
@@ -916,16 +820,13 @@ function addCategoryButton(
             }
         );
 
-
         button.classList.add(
             "active"
         );
 
-
         renderChannels();
 
     };
-
 
     categoriesBox.appendChild(
         button
@@ -937,9 +838,7 @@ function addCategoryButton(
    PLACEHOLDER LOGO
 ========================================================= */
 
-function placeholderLogo(
-    name
-) {
+function placeholderLogo(name) {
 
     return (
         "https://via.placeholder.com/300/111111/ffffff" +
@@ -965,10 +864,7 @@ function renderChannels() {
     .toLowerCase()
     .trim();
 
-
-    grid.innerHTML =
-    "";
-
+    grid.innerHTML = "";
 
     const filtered =
     channels.filter(
@@ -979,14 +875,12 @@ function renderChannels() {
             channel.group ===
             currentCategory;
 
-
             const searchOK =
             channel.name
             .toLowerCase()
             .includes(
                 keyword
             );
-
 
             return (
                 categoryOK &&
@@ -996,20 +890,16 @@ function renderChannels() {
         }
     );
 
-
     filtered.forEach(
         channel => {
-
 
             const card =
             document.createElement(
                 "div"
             );
 
-
             card.className =
             "channel";
-
 
             if (
                 currentChannel &&
@@ -1023,24 +913,19 @@ function renderChannels() {
 
             }
 
-
             const img =
             document.createElement(
                 "img"
             );
 
-
             img.className =
             "channel-logo";
-
 
             img.loading =
             "lazy";
 
-
             img.alt =
             channel.name;
-
 
             img.src =
             channel.logo ||
@@ -1048,12 +933,10 @@ function renderChannels() {
                 channel.name
             );
 
-
             img.onerror =
             function() {
 
-                this.onerror =
-                null;
+                this.onerror = null;
 
                 this.src =
                 placeholderLogo(
@@ -1062,49 +945,39 @@ function renderChannels() {
 
             };
 
-
             const name =
             document.createElement(
                 "div"
             );
 
-
             name.className =
             "channel-name";
 
-
             name.textContent =
             channel.name;
-
 
             const group =
             document.createElement(
                 "div"
             );
 
-
             group.className =
             "channel-group";
-
 
             group.textContent =
             channel.group;
 
+            card.appendChild(img);
 
-            card.appendChild(
-                img
-            );
+            card.appendChild(name);
 
-
-            card.appendChild(
-                name
-            );
+            card.appendChild(group);
 
 
-            card.appendChild(
-                group
-            );
-
+            /* =================================================
+               IMPORTANT FIX
+               No window.scrollTo() here.
+            ================================================= */
 
             card.onclick =
             function() {
@@ -1113,18 +986,10 @@ function renderChannels() {
                     channel
                 );
 
-
-                window.scrollTo({
-                    top: 0,
-                    behavior: "smooth"
-                });
-
             };
 
 
-            grid.appendChild(
-                card
-            );
+            grid.appendChild(card);
 
         }
     );
@@ -1141,62 +1006,41 @@ function destroyPlayer() {
         retryTimer
     );
 
+    retryTimer = null;
 
-    retryTimer =
-    null;
-
-
-    retryCount =
-    0;
-
+    retryCount = 0;
 
     if (hls) {
 
         try {
-
             hls.stopLoad();
-
         }
 
         catch(e) {}
-
 
         try {
-
             hls.destroy();
-
         }
 
         catch(e) {}
 
-
-        hls =
-        null;
+        hls = null;
     }
-
 
     video.pause();
 
-
-    video.removeAttribute(
-        "src"
-    );
-
+    video.removeAttribute("src");
 
     video.load();
-
 
     playerStatus.style.display =
     "none";
 
-
     liveBadge.style.display =
     "none";
 
-
     externalPlayerBox.style.display =
     "none";
-
 }
 
 
@@ -1204,19 +1048,14 @@ function destroyPlayer() {
    HLS DETECTION
 ========================================================= */
 
-function isHLS(
-    url
-) {
+function isHLS(url) {
 
     const lower =
     url.toLowerCase();
 
-
     return (
 
-        lower.includes(
-            ".m3u8"
-        )
+        lower.includes(".m3u8")
 
         ||
 
@@ -1232,14 +1071,10 @@ function isHLS(
    TS DETECTION
 ========================================================= */
 
-function isTS(
-    url
-) {
+function isTS(url) {
 
     return (
-        /\.ts(\?|$)/i.test(
-            url
-        )
+        /\.ts(\?|$)/i.test(url)
     );
 
 }
@@ -1249,22 +1084,16 @@ function isTS(
    PLAY CHANNEL
 ========================================================= */
 
-function playChannel(
-    channel
-) {
+function playChannel(channel) {
 
     currentChannel =
     channel;
 
-
-    retryCount =
-    0;
-
+    retryCount = 0;
 
     clearTimeout(
         retryTimer
     );
-
 
     nowPlaying.innerHTML =
     "▶ " +
@@ -1272,16 +1101,12 @@ function playChannel(
         channel.name
     );
 
-
     renderChannels();
-
 
     destroyPlayer();
 
-
     const url =
     channel.url.trim();
-
 
     if (!url) {
 
@@ -1292,68 +1117,44 @@ function playChannel(
         return;
     }
 
-
     console.log(
         "Playing:",
         channel.name,
         url
     );
 
-
     setStatus(
         "Connecting..."
     );
 
 
-    /*
-    =============================================
-    HLS
-    =============================================
-    */
+    /* HLS */
 
     if (
-        isHLS(
-            url
-        )
+        isHLS(url)
     ) {
 
-        playHLS(
-            url
-        );
+        playHLS(url);
 
         return;
     }
 
 
-    /*
-    =============================================
-    TS
-    =============================================
-    */
+    /* TS */
 
     if (
-        isTS(
-            url
-        )
+        isTS(url)
     ) {
 
-        playTS(
-            url
-        );
+        playTS(url);
 
         return;
     }
 
 
-    /*
-    =============================================
-    OTHER VIDEO
-    =============================================
-    */
+    /* OTHER VIDEO */
 
-    startNormalVideo(
-        url
-    );
+    startNormalVideo(url);
 
 }
 
@@ -1362,25 +1163,15 @@ function playChannel(
    PLAY TS
 ========================================================= */
 
-function playTS(
-    url
-) {
-
-    /*
-     * First attempt browser playback.
-     */
+function playTS(url) {
 
     setStatus(
         "Trying browser player..."
     );
 
-
-    video.src =
-    url;
-
+    video.src = url;
 
     video.load();
-
 
     video.play()
     .then(
@@ -1390,7 +1181,6 @@ function playTS(
                 "Playing..."
             );
 
-
             liveBadge.style.display =
             "block";
 
@@ -1398,11 +1188,6 @@ function playTS(
     )
     .catch(
         function() {
-
-            /*
-             * Browser failed.
-             * Show external player options.
-             */
 
             showExternalPlayer(
                 url
@@ -1412,11 +1197,6 @@ function playTS(
     );
 
 
-    /*
-     * If browser raises an error,
-     * show external player.
-     */
-
     video.addEventListener(
         "error",
         function tsError() {
@@ -1425,7 +1205,6 @@ function playTS(
                 "error",
                 tsError
             );
-
 
             if (
                 isTS(url)
@@ -1449,18 +1228,14 @@ function playTS(
    HLS
 ========================================================= */
 
-function playHLS(
-    url
-) {
+function playHLS(url) {
 
     setStatus(
         "Connecting..."
     );
 
 
-    /*
-    Native HLS
-    */
+    /* Native HLS */
 
     if (
         video.canPlayType(
@@ -1468,26 +1243,20 @@ function playHLS(
         )
     ) {
 
-        startNativeHLS(
-            url
-        );
+        startNativeHLS(url);
 
         return;
     }
 
 
-    /*
-    HLS.js
-    */
+    /* HLS.js */
 
     if (
         window.Hls &&
         Hls.isSupported()
     ) {
 
-        startHLS(
-            url
-        );
+        startHLS(url);
 
         return;
     }
@@ -1504,16 +1273,11 @@ function playHLS(
    NATIVE HLS
 ========================================================= */
 
-function startNativeHLS(
-    url
-) {
+function startNativeHLS(url) {
 
-    video.src =
-    url;
-
+    video.src = url;
 
     video.load();
-
 
     video.addEventListener(
         "loadedmetadata",
@@ -1524,15 +1288,12 @@ function startNativeHLS(
                 nativePlay
             );
 
-
             setStatus(
                 "Playing..."
             );
 
-
             liveBadge.style.display =
             "block";
-
 
             video.play()
             .catch(
@@ -1554,9 +1315,7 @@ function startNativeHLS(
    HLS.JS
 ========================================================= */
 
-function startHLS(
-    url
-) {
+function startHLS(url) {
 
     hls =
     new Hls({
@@ -1593,16 +1352,9 @@ function startHLS(
 
     });
 
+    hls.loadSource(url);
 
-    hls.loadSource(
-        url
-    );
-
-
-    hls.attachMedia(
-        video
-    );
-
+    hls.attachMedia(video);
 
     hls.on(
         Hls.Events.MANIFEST_PARSED,
@@ -1612,10 +1364,8 @@ function startHLS(
                 "Playing..."
             );
 
-
             liveBadge.style.display =
             "block";
-
 
             video.play()
             .catch(
@@ -1634,16 +1384,12 @@ function startHLS(
 
     hls.on(
         Hls.Events.ERROR,
-        function(
-            event,
-            data
-        ) {
+        function(event, data) {
 
             console.warn(
                 "HLS error:",
                 data
             );
-
 
             if (
                 !data.fatal
@@ -1652,7 +1398,6 @@ function startHLS(
                 return;
 
             }
-
 
             if (
                 data.type ===
@@ -1667,20 +1412,14 @@ function startHLS(
 
                 catch(e) {
 
-                    retryHLS(
-                        url
-                    );
+                    retryHLS(url);
 
                 }
-
 
                 return;
             }
 
-
-            retryHLS(
-                url
-            );
+            retryHLS(url);
 
         }
     );
@@ -1691,9 +1430,7 @@ function startHLS(
    RETRY HLS
 ========================================================= */
 
-function retryHLS(
-    url
-) {
+function retryHLS(url) {
 
     if (
         retryCount >= 5
@@ -1706,9 +1443,7 @@ function retryHLS(
         return;
     }
 
-
     retryCount++;
-
 
     setStatus(
         "Reconnecting " +
@@ -1716,30 +1451,23 @@ function retryHLS(
         "/5..."
     );
 
-
     clearTimeout(
         retryTimer
     );
-
 
     retryTimer =
     setTimeout(
         function() {
 
             if (!hls) {
-
                 return;
-
             }
-
 
             try {
 
                 hls.stopLoad();
 
-                hls.loadSource(
-                    url
-                );
+                hls.loadSource(url);
 
                 hls.startLoad();
 
@@ -1747,16 +1475,13 @@ function retryHLS(
 
             catch(e) {
 
-                console.warn(
-                    e
-                );
+                console.warn(e);
 
             }
 
         },
         Math.min(
-            1000 *
-            retryCount,
+            1000 * retryCount,
             5000
         )
     );
@@ -1767,16 +1492,11 @@ function retryHLS(
    NORMAL VIDEO
 ========================================================= */
 
-function startNormalVideo(
-    url
-) {
+function startNormalVideo(url) {
 
-    video.src =
-    url;
-
+    video.src = url;
 
     video.load();
-
 
     video.play()
     .then(
@@ -1785,7 +1505,6 @@ function startNormalVideo(
             setStatus(
                 "Playing..."
             );
-
 
             liveBadge.style.display =
             "block";
@@ -1808,24 +1527,18 @@ function startNormalVideo(
    EXTERNAL PLAYER UI
 ========================================================= */
 
-function showExternalPlayer(
-    url
-) {
+function showExternalPlayer(url) {
 
     currentExternalURL =
     url;
 
-
     setStatus("");
-
 
     liveBadge.style.display =
     "none";
 
-
     externalPlayerBox.style.display =
     "block";
-
 
     nowPlaying.innerHTML =
     "⚠️ " +
@@ -1835,22 +1548,6 @@ function showExternalPlayer(
         : "Stream"
     );
 
-
-    /*
-     * Scroll player area into view
-     */
-
-    setTimeout(
-        function() {
-
-            externalPlayerBox.scrollIntoView({
-                behavior: "smooth",
-                block: "nearest"
-            });
-
-        },
-        100
-    );
 }
 
 
@@ -1862,11 +1559,8 @@ openDefaultBtn.onclick =
 function() {
 
     if (!currentExternalURL) {
-
         return;
-
     }
-
 
     openExternalURL(
         currentExternalURL
@@ -1876,18 +1570,15 @@ function() {
 
 
 /* =========================================================
-   OPEN ANDROID PLAYER
+   ANDROID PLAYER
 ========================================================= */
 
 androidIntentBtn.onclick =
 function() {
 
     if (!currentExternalURL) {
-
         return;
-
     }
-
 
     openAndroidIntent(
         currentExternalURL
@@ -1904,11 +1595,8 @@ openNewTabBtn.onclick =
 function() {
 
     if (!currentExternalURL) {
-
         return;
-
     }
-
 
     window.open(
         currentExternalURL,
@@ -1927,11 +1615,8 @@ copyUrlBtn.onclick =
 async function() {
 
     if (!currentExternalURL) {
-
         return;
-
     }
-
 
     try {
 
@@ -1939,10 +1624,8 @@ async function() {
             currentExternalURL
         );
 
-
         copyUrlBtn.innerText =
         "✓ Copied";
-
 
         setTimeout(
             function() {
@@ -1972,41 +1655,21 @@ async function() {
    OPEN EXTERNAL URL
 ========================================================= */
 
-function openExternalURL(
-    url
-) {
-
-    /*
-     * Create a normal link.
-     * Android may hand it to a compatible
-     * installed video/IPTV application.
-     */
+function openExternalURL(url) {
 
     const link =
-    document.createElement(
-        "a"
-    );
+    document.createElement("a");
 
+    link.href = url;
 
-    link.href =
-    url;
-
-
-    link.target =
-    "_blank";
-
+    link.target = "_blank";
 
     link.rel =
     "noopener noreferrer";
 
-
-    document.body.appendChild(
-        link
-    );
-
+    document.body.appendChild(link);
 
     link.click();
-
 
     link.remove();
 
@@ -2017,19 +1680,7 @@ function openExternalURL(
    ANDROID INTENT
 ========================================================= */
 
-function openAndroidIntent(
-    url
-) {
-
-    /*
-     * Android intent.
-     *
-     * This may open a compatible
-     * installed media player.
-     *
-     * Browser security can prevent
-     * automatic application launching.
-     */
+function openAndroidIntent(url) {
 
     const intentURL =
     "intent://" +
@@ -2043,7 +1694,6 @@ function openAndroidIntent(
     "type=video/*;" +
     "end";
 
-
     window.location.href =
     intentURL;
 
@@ -2054,9 +1704,7 @@ function openAndroidIntent(
    STATUS
 ========================================================= */
 
-function setStatus(
-    message
-) {
+function setStatus(message) {
 
     if (!message) {
 
@@ -2064,13 +1712,10 @@ function setStatus(
         "none";
 
         return;
-
     }
-
 
     playerStatus.innerText =
     message;
-
 
     playerStatus.style.display =
     "block";
@@ -2082,22 +1727,16 @@ function setStatus(
    ERROR
 ========================================================= */
 
-function showPlayerError(
-    message
-) {
+function showPlayerError(message) {
 
     setStatus("");
-
 
     liveBadge.style.display =
     "none";
 
-
     nowPlaying.innerHTML =
     "⚠️ " +
-    escapeHTML(
-        message
-    );
+    escapeHTML(message);
 
 }
 
@@ -2116,9 +1755,7 @@ search.addEventListener(
    HTML ESCAPE
 ========================================================= */
 
-function escapeHTML(
-    text
-) {
+function escapeHTML(text) {
 
     return String(text)
 
@@ -2184,10 +1821,8 @@ video.addEventListener(
 
         setStatus("");
 
-
         liveBadge.style.display =
         "block";
-
 
         if (
             currentChannel
@@ -2254,7 +1889,6 @@ document.addEventListener(
             return;
 
         }
-
 
         if (
             hls &&
