@@ -20,11 +20,16 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: auto;
+}
+
 body {
     margin: 0;
     background: #0b0b0b;
     color: white;
     font-family: Arial, sans-serif;
+    overflow-x: hidden;
 }
 
 /* =========================================================
@@ -91,9 +96,14 @@ header {
    PLAYER
 ========================================================= */
 
+/*
+   IMPORTANT:
+   Player is NOT sticky.
+   This prevents scroll jumping when channel changes.
+*/
+
 .player-container {
-    position: sticky;
-    top: 109px;
+    position: relative;
     z-index: 90;
     background: #000;
     width: 100%;
@@ -146,7 +156,7 @@ video {
 }
 
 /* =========================================================
-   EXTERNAL PLAYER AREA
+   EXTERNAL PLAYER
 ========================================================= */
 
 .external-player-box {
@@ -219,6 +229,7 @@ video {
     cursor: pointer;
     border: 1px solid #262626;
     transition: transform .15s, border-color .15s;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .channel:hover {
@@ -280,7 +291,9 @@ video {
 @media (max-width: 600px) {
 
     #channelGrid {
-        grid-template-columns: repeat(5, minmax(0, 1fr));
+        grid-template-columns:
+        repeat(5, minmax(0, 1fr));
+
         gap: 5px;
         padding: 6px;
     }
@@ -301,10 +314,6 @@ video {
 
     .header-title {
         font-size: 18px;
-    }
-
-    .player-container {
-        top: 104px;
     }
 
     video {
@@ -414,7 +423,9 @@ video {
     </div>
 
 
-    <!-- EXTERNAL PLAYER CONTROLS -->
+    <!-- =====================================================
+         EXTERNAL PLAYER CONTROLS
+    ====================================================== -->
 
     <div
         id="externalPlayerBox"
@@ -459,9 +470,11 @@ video {
         </div>
 
         <div class="external-help">
-            If your browser does not automatically open a
-            video/IPTV app, use "Copy URL" and paste it into
-            VLC, MX Player, or another IPTV player.
+
+            If your browser does not automatically open
+            a video/IPTV app, use "Copy URL" and paste it
+            into VLC, MX Player, or another IPTV player.
+
         </div>
 
     </div>
@@ -476,6 +489,7 @@ video {
 <div id="loading">
     Loading channels...
 </div>
+
 
 <div id="error">
     Unable to load playlist.
@@ -504,46 +518,74 @@ const PLAYLIST_URL =
 ========================================================= */
 
 const video =
-document.getElementById("videoPlayer");
+document.getElementById(
+    "videoPlayer"
+);
 
 const grid =
-document.getElementById("channelGrid");
+document.getElementById(
+    "channelGrid"
+);
 
 const search =
-document.getElementById("search");
+document.getElementById(
+    "search"
+);
 
 const loading =
-document.getElementById("loading");
+document.getElementById(
+    "loading"
+);
 
 const errorBox =
-document.getElementById("error");
+document.getElementById(
+    "error"
+);
 
 const nowPlaying =
-document.getElementById("nowPlaying");
+document.getElementById(
+    "nowPlaying"
+);
 
 const categoriesBox =
-document.getElementById("categories");
+document.getElementById(
+    "categories"
+);
 
 const playerStatus =
-document.getElementById("playerStatus");
+document.getElementById(
+    "playerStatus"
+);
 
 const liveBadge =
-document.getElementById("liveBadge");
+document.getElementById(
+    "liveBadge"
+);
 
 const externalPlayerBox =
-document.getElementById("externalPlayerBox");
+document.getElementById(
+    "externalPlayerBox"
+);
 
 const openDefaultBtn =
-document.getElementById("openDefaultBtn");
+document.getElementById(
+    "openDefaultBtn"
+);
 
 const androidIntentBtn =
-document.getElementById("androidIntentBtn");
+document.getElementById(
+    "androidIntentBtn"
+);
 
 const openNewTabBtn =
-document.getElementById("openNewTabBtn");
+document.getElementById(
+    "openNewTabBtn"
+);
 
 const copyUrlBtn =
-document.getElementById("copyUrlBtn");
+document.getElementById(
+    "copyUrlBtn"
+);
 
 
 /* =========================================================
@@ -566,6 +608,26 @@ let currentExternalURL = "";
 
 
 /* =========================================================
+   SCROLL LOCK / RESTORE
+========================================================= */
+
+function restoreScroll(position) {
+
+    if (
+        typeof position !== "number"
+    ) {
+        return;
+    }
+
+    window.scrollTo(
+        0,
+        position
+    );
+
+}
+
+
+/* =========================================================
    LOAD PLAYLIST
 ========================================================= */
 
@@ -573,9 +635,12 @@ async function loadPlaylist() {
 
     try {
 
-        loading.style.display = "block";
+        loading.style.display =
+        "block";
 
-        errorBox.style.display = "none";
+        errorBox.style.display =
+        "none";
+
 
         const response =
         await fetch(
@@ -587,6 +652,7 @@ async function loadPlaylist() {
             }
         );
 
+
         if (!response.ok) {
 
             throw new Error(
@@ -595,13 +661,20 @@ async function loadPlaylist() {
 
         }
 
+
         const text =
         await response.text();
 
-        channels =
-        parseM3U(text);
 
-        loading.style.display = "none";
+        channels =
+        parseM3U(
+            text
+        );
+
+
+        loading.style.display =
+        "none";
+
 
         if (!channels.length) {
 
@@ -614,6 +687,7 @@ async function loadPlaylist() {
             return;
         }
 
+
         createCategories();
 
         renderChannels();
@@ -624,11 +698,14 @@ async function loadPlaylist() {
 
         console.error(err);
 
+
         loading.style.display =
         "none";
 
+
         errorBox.innerText =
         "Playlist load failed.";
+
 
         errorBox.style.display =
         "block";
@@ -646,10 +723,15 @@ function parseM3U(text) {
     const lines =
     text
     .split(/\r?\n/)
-    .map(line => line.trim())
+    .map(
+        line =>
+        line.trim()
+    )
     .filter(Boolean);
 
+
     const result = [];
+
 
     for (
         let i = 0;
@@ -667,10 +749,13 @@ function parseM3U(text) {
 
         }
 
+
         const info =
         lines[i];
 
+
         let url = "";
+
 
         for (
             let j = i + 1;
@@ -679,7 +764,8 @@ function parseM3U(text) {
         ) {
 
             if (
-                !lines[j].startsWith("#")
+                !lines[j]
+                .startsWith("#")
             ) {
 
                 url =
@@ -691,33 +777,40 @@ function parseM3U(text) {
 
         }
 
+
         if (!url) {
             continue;
         }
+
 
         let name =
         info.substring(
             info.lastIndexOf(",") + 1
         ).trim();
 
+
         if (!name) {
             name = "Unknown Channel";
         }
+
 
         const logoMatch =
         info.match(
             /tvg-logo="([^"]*)"/i
         );
 
+
         const logo =
         logoMatch
         ? logoMatch[1]
         : "";
 
+
         const groupMatch =
         info.match(
             /group-title="([^"]*)"/i
         );
+
 
         const group =
         groupMatch &&
@@ -725,15 +818,18 @@ function parseM3U(text) {
         ? groupMatch[1]
         : "OTHER";
 
+
         const idMatch =
         info.match(
             /tvg-id="([^"]*)"/i
         );
 
+
         const id =
         idMatch
         ? idMatch[1]
         : "";
+
 
         result.push({
 
@@ -746,6 +842,7 @@ function parseM3U(text) {
         });
 
     }
+
 
     return result;
 }
@@ -768,9 +865,15 @@ function createCategories() {
         )
     ];
 
-    categoriesBox.innerHTML = "";
 
-    addCategoryButton("ALL");
+    categoriesBox.innerHTML =
+    "";
+
+
+    addCategoryButton(
+        "ALL"
+    );
+
 
     groups.forEach(
         group => {
@@ -784,10 +887,15 @@ function createCategories() {
 }
 
 
-function addCategoryButton(category) {
+function addCategoryButton(
+    category
+) {
 
     const button =
-    document.createElement("button");
+    document.createElement(
+        "button"
+    );
+
 
     button.className =
     "category-btn" +
@@ -797,14 +905,17 @@ function addCategoryButton(category) {
         : ""
     );
 
+
     button.textContent =
     category;
+
 
     button.onclick =
     function() {
 
         currentCategory =
         category;
+
 
         document
         .querySelectorAll(
@@ -820,13 +931,16 @@ function addCategoryButton(category) {
             }
         );
 
+
         button.classList.add(
             "active"
         );
 
+
         renderChannels();
 
     };
+
 
     categoriesBox.appendChild(
         button
@@ -838,7 +952,9 @@ function addCategoryButton(category) {
    PLACEHOLDER LOGO
 ========================================================= */
 
-function placeholderLogo(name) {
+function placeholderLogo(
+    name
+) {
 
     return (
         "https://via.placeholder.com/300/111111/ffffff" +
@@ -850,6 +966,7 @@ function placeholderLogo(name) {
             )
         )
     );
+
 }
 
 
@@ -864,7 +981,10 @@ function renderChannels() {
     .toLowerCase()
     .trim();
 
-    grid.innerHTML = "";
+
+    grid.innerHTML =
+    "";
+
 
     const filtered =
     channels.filter(
@@ -875,12 +995,14 @@ function renderChannels() {
             channel.group ===
             currentCategory;
 
+
             const searchOK =
             channel.name
             .toLowerCase()
             .includes(
                 keyword
             );
+
 
             return (
                 categoryOK &&
@@ -890,6 +1012,7 @@ function renderChannels() {
         }
     );
 
+
     filtered.forEach(
         channel => {
 
@@ -898,8 +1021,10 @@ function renderChannels() {
                 "div"
             );
 
+
             card.className =
             "channel";
+
 
             if (
                 currentChannel &&
@@ -913,19 +1038,24 @@ function renderChannels() {
 
             }
 
+
             const img =
             document.createElement(
                 "img"
             );
 
+
             img.className =
             "channel-logo";
+
 
             img.loading =
             "lazy";
 
+
             img.alt =
             channel.name;
+
 
             img.src =
             channel.logo ||
@@ -933,10 +1063,12 @@ function renderChannels() {
                 channel.name
             );
 
+
             img.onerror =
             function() {
 
-                this.onerror = null;
+                this.onerror =
+                null;
 
                 this.src =
                 placeholderLogo(
@@ -945,54 +1077,82 @@ function renderChannels() {
 
             };
 
+
             const name =
             document.createElement(
                 "div"
             );
 
+
             name.className =
             "channel-name";
 
+
             name.textContent =
             channel.name;
+
 
             const group =
             document.createElement(
                 "div"
             );
 
+
             group.className =
             "channel-group";
+
 
             group.textContent =
             channel.group;
 
-            card.appendChild(img);
 
-            card.appendChild(name);
+            card.appendChild(
+                img
+            );
 
-            card.appendChild(group);
+
+            card.appendChild(
+                name
+            );
+
+
+            card.appendChild(
+                group
+            );
 
 
             /* =================================================
-               IMPORTANT FIX
-               No window.scrollTo() here.
+               IMPORTANT:
+               No scrollIntoView()
+               No window.scrollTo(0, 0)
             ================================================= */
 
-            card.onclick =
-            function() {
+            card.addEventListener(
+                "click",
+                function(e) {
 
-                playChannel(
-                    channel
-                );
+                    e.preventDefault();
 
-            };
+                    const savedScrollY =
+                    window.scrollY;
 
 
-            grid.appendChild(card);
+                    playChannel(
+                        channel,
+                        savedScrollY
+                    );
+
+                }
+            );
+
+
+            grid.appendChild(
+                card
+            );
 
         }
     );
+
 }
 
 
@@ -1006,41 +1166,63 @@ function destroyPlayer() {
         retryTimer
     );
 
-    retryTimer = null;
 
-    retryCount = 0;
+    retryTimer =
+    null;
+
+
+    retryCount =
+    0;
+
 
     if (hls) {
 
         try {
+
             hls.stopLoad();
+
         }
 
         catch(e) {}
+
 
         try {
+
             hls.destroy();
+
         }
 
         catch(e) {}
 
-        hls = null;
+
+        hls =
+        null;
+
     }
+
 
     video.pause();
 
-    video.removeAttribute("src");
+
+    video.removeAttribute(
+        "src"
+    );
+
 
     video.load();
+
 
     playerStatus.style.display =
     "none";
 
+
     liveBadge.style.display =
     "none";
 
+
     externalPlayerBox.style.display =
     "none";
+
 }
 
 
@@ -1048,14 +1230,19 @@ function destroyPlayer() {
    HLS DETECTION
 ========================================================= */
 
-function isHLS(url) {
+function isHLS(
+    url
+) {
 
     const lower =
     url.toLowerCase();
 
+
     return (
 
-        lower.includes(".m3u8")
+        lower.includes(
+            ".m3u8"
+        )
 
         ||
 
@@ -1064,6 +1251,7 @@ function isHLS(url) {
         )
 
     );
+
 }
 
 
@@ -1071,10 +1259,14 @@ function isHLS(url) {
    TS DETECTION
 ========================================================= */
 
-function isTS(url) {
+function isTS(
+    url
+) {
 
     return (
-        /\.ts(\?|$)/i.test(url)
+        /\.ts(\?|$)/i.test(
+            url
+        )
     );
 
 }
@@ -1084,16 +1276,33 @@ function isTS(url) {
    PLAY CHANNEL
 ========================================================= */
 
-function playChannel(channel) {
+function playChannel(
+    channel,
+    savedScrollY
+) {
 
     currentChannel =
     channel;
 
-    retryCount = 0;
+
+    retryCount =
+    0;
+
 
     clearTimeout(
         retryTimer
     );
+
+
+    /*
+     * IMPORTANT:
+     * Prevent browser from moving the page.
+     */
+
+    restoreScroll(
+        savedScrollY
+    );
+
 
     nowPlaying.innerHTML =
     "▶ " +
@@ -1101,12 +1310,31 @@ function playChannel(channel) {
         channel.name
     );
 
+
+    /*
+     * Render active channel.
+     * Scroll position is restored immediately after.
+     */
+
     renderChannels();
+
+
+    restoreScroll(
+        savedScrollY
+    );
+
 
     destroyPlayer();
 
+
+    restoreScroll(
+        savedScrollY
+    );
+
+
     const url =
     channel.url.trim();
+
 
     if (!url) {
 
@@ -1114,47 +1342,83 @@ function playChannel(channel) {
             "Invalid stream URL."
         );
 
+        restoreScroll(
+            savedScrollY
+        );
+
         return;
     }
 
-    console.log(
-        "Playing:",
-        channel.name,
-        url
-    );
 
     setStatus(
         "Connecting..."
     );
 
 
-    /* HLS */
+    /*
+     * HLS
+     */
 
     if (
         isHLS(url)
     ) {
 
-        playHLS(url);
+        playHLS(
+            url,
+            savedScrollY
+        );
 
-        return;
     }
 
 
-    /* TS */
+    /*
+     * TS
+     */
 
-    if (
+    else if (
         isTS(url)
     ) {
 
-        playTS(url);
+        playTS(
+            url,
+            savedScrollY
+        );
 
-        return;
     }
 
 
-    /* OTHER VIDEO */
+    /*
+     * Normal video
+     */
 
-    startNormalVideo(url);
+    else {
+
+        startNormalVideo(
+            url,
+            savedScrollY
+        );
+
+    }
+
+
+    /*
+     * Restore after DOM/player changes.
+     */
+
+    restoreScroll(
+        savedScrollY
+    );
+
+
+    requestAnimationFrame(
+        function() {
+
+            restoreScroll(
+                savedScrollY
+            );
+
+        }
+    );
 
 }
 
@@ -1163,15 +1427,27 @@ function playChannel(channel) {
    PLAY TS
 ========================================================= */
 
-function playTS(url) {
+function playTS(
+    url,
+    savedScrollY
+) {
 
     setStatus(
         "Trying browser player..."
     );
 
-    video.src = url;
+
+    video.src =
+    url;
+
 
     video.load();
+
+
+    restoreScroll(
+        savedScrollY
+    );
+
 
     video.play()
     .then(
@@ -1181,8 +1457,14 @@ function playTS(url) {
                 "Playing..."
             );
 
+
             liveBadge.style.display =
             "block";
+
+
+            restoreScroll(
+                savedScrollY
+            );
 
         }
     )
@@ -1190,7 +1472,8 @@ function playTS(url) {
         function() {
 
             showExternalPlayer(
-                url
+                url,
+                savedScrollY
             );
 
         }
@@ -1206,12 +1489,14 @@ function playTS(url) {
                 tsError
             );
 
+
             if (
                 isTS(url)
             ) {
 
                 showExternalPlayer(
-                    url
+                    url,
+                    savedScrollY
                 );
 
             }
@@ -1221,6 +1506,7 @@ function playTS(url) {
             once: true
         }
     );
+
 }
 
 
@@ -1228,14 +1514,24 @@ function playTS(url) {
    HLS
 ========================================================= */
 
-function playHLS(url) {
+function playHLS(
+    url,
+    savedScrollY
+) {
 
     setStatus(
         "Connecting..."
     );
 
 
-    /* Native HLS */
+    restoreScroll(
+        savedScrollY
+    );
+
+
+    /*
+     * Native HLS
+     */
 
     if (
         video.canPlayType(
@@ -1243,20 +1539,28 @@ function playHLS(url) {
         )
     ) {
 
-        startNativeHLS(url);
+        startNativeHLS(
+            url,
+            savedScrollY
+        );
 
         return;
     }
 
 
-    /* HLS.js */
+    /*
+     * HLS.js
+     */
 
     if (
         window.Hls &&
         Hls.isSupported()
     ) {
 
-        startHLS(url);
+        startHLS(
+            url,
+            savedScrollY
+        );
 
         return;
     }
@@ -1266,6 +1570,11 @@ function playHLS(url) {
         "HLS is not supported by this browser."
     );
 
+
+    restoreScroll(
+        savedScrollY
+    );
+
 }
 
 
@@ -1273,11 +1582,22 @@ function playHLS(url) {
    NATIVE HLS
 ========================================================= */
 
-function startNativeHLS(url) {
+function startNativeHLS(
+    url,
+    savedScrollY
+) {
 
-    video.src = url;
+    video.src =
+    url;
+
 
     video.load();
+
+
+    restoreScroll(
+        savedScrollY
+    );
+
 
     video.addEventListener(
         "loadedmetadata",
@@ -1288,12 +1608,20 @@ function startNativeHLS(url) {
                 nativePlay
             );
 
+
             setStatus(
                 "Playing..."
             );
 
+
             liveBadge.style.display =
             "block";
+
+
+            restoreScroll(
+                savedScrollY
+            );
+
 
             video.play()
             .catch(
@@ -1308,6 +1636,7 @@ function startNativeHLS(url) {
 
         }
     );
+
 }
 
 
@@ -1315,7 +1644,10 @@ function startNativeHLS(url) {
    HLS.JS
 ========================================================= */
 
-function startHLS(url) {
+function startHLS(
+    url,
+    savedScrollY
+) {
 
     hls =
     new Hls({
@@ -1352,9 +1684,21 @@ function startHLS(url) {
 
     });
 
-    hls.loadSource(url);
 
-    hls.attachMedia(video);
+    hls.loadSource(
+        url
+    );
+
+
+    hls.attachMedia(
+        video
+    );
+
+
+    restoreScroll(
+        savedScrollY
+    );
+
 
     hls.on(
         Hls.Events.MANIFEST_PARSED,
@@ -1364,8 +1708,15 @@ function startHLS(url) {
                 "Playing..."
             );
 
+
             liveBadge.style.display =
             "block";
+
+
+            restoreScroll(
+                savedScrollY
+            );
+
 
             video.play()
             .catch(
@@ -1384,12 +1735,16 @@ function startHLS(url) {
 
     hls.on(
         Hls.Events.ERROR,
-        function(event, data) {
+        function(
+            event,
+            data
+        ) {
 
             console.warn(
                 "HLS error:",
                 data
             );
+
 
             if (
                 !data.fatal
@@ -1398,6 +1753,7 @@ function startHLS(url) {
                 return;
 
             }
+
 
             if (
                 data.type ===
@@ -1412,17 +1768,26 @@ function startHLS(url) {
 
                 catch(e) {
 
-                    retryHLS(url);
+                    retryHLS(
+                        url,
+                        savedScrollY
+                    );
 
                 }
+
 
                 return;
             }
 
-            retryHLS(url);
+
+            retryHLS(
+                url,
+                savedScrollY
+            );
 
         }
     );
+
 }
 
 
@@ -1430,7 +1795,10 @@ function startHLS(url) {
    RETRY HLS
 ========================================================= */
 
-function retryHLS(url) {
+function retryHLS(
+    url,
+    savedScrollY
+) {
 
     if (
         retryCount >= 5
@@ -1440,10 +1808,16 @@ function retryHLS(url) {
             "Stream unavailable."
         );
 
+        restoreScroll(
+            savedScrollY
+        );
+
         return;
     }
 
+
     retryCount++;
+
 
     setStatus(
         "Reconnecting " +
@@ -1451,9 +1825,11 @@ function retryHLS(url) {
         "/5..."
     );
 
+
     clearTimeout(
         retryTimer
     );
+
 
     retryTimer =
     setTimeout(
@@ -1463,13 +1839,21 @@ function retryHLS(url) {
                 return;
             }
 
+
             try {
 
                 hls.stopLoad();
 
-                hls.loadSource(url);
+                hls.loadSource(
+                    url
+                );
 
                 hls.startLoad();
+
+
+                restoreScroll(
+                    savedScrollY
+                );
 
             }
 
@@ -1481,10 +1865,12 @@ function retryHLS(url) {
 
         },
         Math.min(
-            1000 * retryCount,
+            1000 *
+            retryCount,
             5000
         )
     );
+
 }
 
 
@@ -1492,11 +1878,22 @@ function retryHLS(url) {
    NORMAL VIDEO
 ========================================================= */
 
-function startNormalVideo(url) {
+function startNormalVideo(
+    url,
+    savedScrollY
+) {
 
-    video.src = url;
+    video.src =
+    url;
+
 
     video.load();
+
+
+    restoreScroll(
+        savedScrollY
+    );
+
 
     video.play()
     .then(
@@ -1506,8 +1903,14 @@ function startNormalVideo(url) {
                 "Playing..."
             );
 
+
             liveBadge.style.display =
             "block";
+
+
+            restoreScroll(
+                savedScrollY
+            );
 
         }
     )
@@ -1515,11 +1918,13 @@ function startNormalVideo(url) {
         function() {
 
             showExternalPlayer(
-                url
+                url,
+                savedScrollY
             );
 
         }
     );
+
 }
 
 
@@ -1527,18 +1932,25 @@ function startNormalVideo(url) {
    EXTERNAL PLAYER UI
 ========================================================= */
 
-function showExternalPlayer(url) {
+function showExternalPlayer(
+    url,
+    savedScrollY
+) {
 
     currentExternalURL =
     url;
 
+
     setStatus("");
+
 
     liveBadge.style.display =
     "none";
 
+
     externalPlayerBox.style.display =
     "block";
+
 
     nowPlaying.innerHTML =
     "⚠️ " +
@@ -1546,6 +1958,11 @@ function showExternalPlayer(url) {
         currentChannel
         ? currentChannel.name
         : "Stream"
+    );
+
+
+    restoreScroll(
+        savedScrollY
     );
 
 }
@@ -1561,6 +1978,7 @@ function() {
     if (!currentExternalURL) {
         return;
     }
+
 
     openExternalURL(
         currentExternalURL
@@ -1580,6 +1998,7 @@ function() {
         return;
     }
 
+
     openAndroidIntent(
         currentExternalURL
     );
@@ -1597,6 +2016,7 @@ function() {
     if (!currentExternalURL) {
         return;
     }
+
 
     window.open(
         currentExternalURL,
@@ -1618,14 +2038,17 @@ async function() {
         return;
     }
 
+
     try {
 
         await navigator.clipboard.writeText(
             currentExternalURL
         );
 
+
         copyUrlBtn.innerText =
         "✓ Copied";
+
 
         setTimeout(
             function() {
@@ -1655,21 +2078,35 @@ async function() {
    OPEN EXTERNAL URL
 ========================================================= */
 
-function openExternalURL(url) {
+function openExternalURL(
+    url
+) {
 
     const link =
-    document.createElement("a");
+    document.createElement(
+        "a"
+    );
 
-    link.href = url;
 
-    link.target = "_blank";
+    link.href =
+    url;
+
+
+    link.target =
+    "_blank";
+
 
     link.rel =
     "noopener noreferrer";
 
-    document.body.appendChild(link);
+
+    document.body.appendChild(
+        link
+    );
+
 
     link.click();
+
 
     link.remove();
 
@@ -1680,7 +2117,9 @@ function openExternalURL(url) {
    ANDROID INTENT
 ========================================================= */
 
-function openAndroidIntent(url) {
+function openAndroidIntent(
+    url
+) {
 
     const intentURL =
     "intent://" +
@@ -1694,6 +2133,7 @@ function openAndroidIntent(url) {
     "type=video/*;" +
     "end";
 
+
     window.location.href =
     intentURL;
 
@@ -1704,7 +2144,9 @@ function openAndroidIntent(url) {
    STATUS
 ========================================================= */
 
-function setStatus(message) {
+function setStatus(
+    message
+) {
 
     if (!message) {
 
@@ -1712,10 +2154,13 @@ function setStatus(message) {
         "none";
 
         return;
+
     }
+
 
     playerStatus.innerText =
     message;
+
 
     playerStatus.style.display =
     "block";
@@ -1727,16 +2172,22 @@ function setStatus(message) {
    ERROR
 ========================================================= */
 
-function showPlayerError(message) {
+function showPlayerError(
+    message
+) {
 
     setStatus("");
+
 
     liveBadge.style.display =
     "none";
 
+
     nowPlaying.innerHTML =
     "⚠️ " +
-    escapeHTML(message);
+    escapeHTML(
+        message
+    );
 
 }
 
@@ -1747,7 +2198,20 @@ function showPlayerError(message) {
 
 search.addEventListener(
     "input",
-    renderChannels
+    function() {
+
+        const savedScrollY =
+        window.scrollY;
+
+
+        renderChannels();
+
+
+        restoreScroll(
+            savedScrollY
+        );
+
+    }
 );
 
 
@@ -1755,7 +2219,9 @@ search.addEventListener(
    HTML ESCAPE
 ========================================================= */
 
-function escapeHTML(text) {
+function escapeHTML(
+    text
+) {
 
     return String(text)
 
@@ -1821,8 +2287,10 @@ video.addEventListener(
 
         setStatus("");
 
+
         liveBadge.style.display =
         "block";
+
 
         if (
             currentChannel
@@ -1889,6 +2357,7 @@ document.addEventListener(
             return;
 
         }
+
 
         if (
             hls &&
