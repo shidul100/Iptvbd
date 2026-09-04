@@ -62,6 +62,10 @@ header {
     font-size: 15px;
 }
 
+#search::placeholder {
+    color: #777;
+}
+
 /* =========================================================
    CATEGORY
 ========================================================= */
@@ -86,6 +90,7 @@ header {
     background: #252525;
     color: white;
     cursor: pointer;
+    white-space: nowrap;
 }
 
 .category-btn.active {
@@ -95,12 +100,6 @@ header {
 /* =========================================================
    PLAYER
 ========================================================= */
-
-/*
-   IMPORTANT:
-   Player is NOT sticky.
-   This prevents scroll jumping when channel changes.
-*/
 
 .player-container {
     position: relative;
@@ -228,8 +227,12 @@ video {
     padding: 7px;
     cursor: pointer;
     border: 1px solid #262626;
-    transition: transform .15s, border-color .15s;
-    -webkit-tap-highlight-color: transparent;
+    transition:
+        transform .15s,
+        border-color .15s;
+
+    -webkit-tap-highlight-color:
+        transparent;
 }
 
 .channel:hover {
@@ -239,7 +242,8 @@ video {
 
 .channel.active {
     border-color: #e50914;
-    box-shadow: 0 0 8px rgba(229,9,20,.35);
+    box-shadow:
+        0 0 8px rgba(229,9,20,.35);
 }
 
 .channel-logo {
@@ -353,6 +357,7 @@ video {
 
 <body>
 
+
 <!-- =======================================================
      HEADER
 ======================================================= -->
@@ -367,6 +372,7 @@ video {
         type="search"
         id="search"
         placeholder="Search channel..."
+        autocomplete="off"
     >
 
     <div
@@ -397,6 +403,7 @@ video {
             playsinline
             webkit-playsinline
             preload="metadata"
+            muted
         ></video>
 
         <div
@@ -415,6 +422,7 @@ video {
 
     </div>
 
+
     <div
         class="now-playing"
         id="nowPlaying"
@@ -424,7 +432,7 @@ video {
 
 
     <!-- =====================================================
-         EXTERNAL PLAYER CONTROLS
+         EXTERNAL PLAYER
     ====================================================== -->
 
     <div
@@ -608,7 +616,7 @@ let currentExternalURL = "";
 
 
 /* =========================================================
-   SCROLL LOCK / RESTORE
+   SCROLL RESTORE
 ========================================================= */
 
 function restoreScroll(position) {
@@ -691,6 +699,33 @@ async function loadPlaylist() {
         createCategories();
 
         renderChannels();
+
+
+        /*
+         * ================================================
+         * AUTO PLAY FIRST CHANNEL
+         * ================================================
+         */
+
+        setTimeout(
+            function() {
+
+                if (
+                    channels.length > 0 &&
+                    !currentChannel
+                ) {
+
+                    playChannel(
+                        channels[0],
+                        window.scrollY,
+                        true
+                    );
+
+                }
+
+            },
+            300
+        );
 
     }
 
@@ -790,7 +825,10 @@ function parseM3U(text) {
 
 
         if (!name) {
-            name = "Unknown Channel";
+
+            name =
+            "Unknown Channel";
+
         }
 
 
@@ -913,6 +951,10 @@ function addCategoryButton(
     button.onclick =
     function() {
 
+        const savedScrollY =
+        window.scrollY;
+
+
         currentCategory =
         category;
 
@@ -939,12 +981,18 @@ function addCategoryButton(
 
         renderChannels();
 
+
+        restoreScroll(
+            savedScrollY
+        );
+
     };
 
 
     categoriesBox.appendChild(
         button
     );
+
 }
 
 
@@ -1121,11 +1169,15 @@ function renderChannels() {
             );
 
 
-            /* =================================================
-               IMPORTANT:
-               No scrollIntoView()
-               No window.scrollTo(0, 0)
-            ================================================= */
+            /*
+             * ============================================
+             * CHANNEL CLICK
+             * ============================================
+             *
+             * No scrollIntoView()
+             * No scrollTo(0,0)
+             *
+             */
 
             card.addEventListener(
                 "click",
@@ -1139,7 +1191,8 @@ function renderChannels() {
 
                     playChannel(
                         channel,
-                        savedScrollY
+                        savedScrollY,
+                        false
                     );
 
                 }
@@ -1278,7 +1331,8 @@ function isTS(
 
 function playChannel(
     channel,
-    savedScrollY
+    savedScrollY,
+    isAutoPlay = false
 ) {
 
     currentChannel =
@@ -1295,8 +1349,7 @@ function playChannel(
 
 
     /*
-     * IMPORTANT:
-     * Prevent browser from moving the page.
+     * Keep page exactly where it was.
      */
 
     restoreScroll(
@@ -1312,8 +1365,7 @@ function playChannel(
 
 
     /*
-     * Render active channel.
-     * Scroll position is restored immediately after.
+     * Re-render active channel.
      */
 
     renderChannels();
@@ -1323,6 +1375,10 @@ function playChannel(
         savedScrollY
     );
 
+
+    /*
+     * Destroy previous stream.
+     */
 
     destroyPlayer();
 
@@ -1353,6 +1409,21 @@ function playChannel(
     setStatus(
         "Connecting..."
     );
+
+
+    /*
+     * AUTO PLAY
+     *
+     * Video is muted initially,
+     * so browser autoplay is more likely
+     * to be allowed.
+     */
+
+    if (isAutoPlay) {
+
+        video.muted = true;
+
+    }
 
 
     /*
@@ -1400,10 +1471,6 @@ function playChannel(
 
     }
 
-
-    /*
-     * Restore after DOM/player changes.
-     */
 
     restoreScroll(
         savedScrollY
