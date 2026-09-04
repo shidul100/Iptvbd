@@ -1,5 +1,7 @@
 #EXTM3U
-#EXTINF:-1 tvg-id="" tvg-logo="https://static.wikia.nocookie.net/etv-gspn-bangla/images/6/6e/T_Sports_HD_logo_2021.png" group-title="SPORTS",T SPORTS
+#EXTINF:-1 tvg-logo="https://static.wikia.nocookie.net/etv-gspn-bangla/images/6/6e/T_Sports_HD_logo_2021.png" group-title="SPORTS",T SPORTS
+https://tvsen5.aynaott.com/TnMn5kZz8aLm/index.m3u8
+#EXTINF:-1 tvg-logo="https://static.wikia.nocookie.net/etv-gspn-bangla/images/6/6e/T_Sports_HD_logo_2021.png" group-title="SPORTS",T SPORTS 2
 https://mycoffeetime.net/play/tSDRdsaoGGQ2qYgRPDEe9q-qMIzoahbJArH3W3vOiEaB97nXMpWmLb0Ts759Tjsp/m3u8
 #EXTINF:-1 tvg-logo="https://assets-prod.services.toffeelive.com/f_png,w_300,q_85/ra2x_pQBrjBfS2_RWG9l/posters/795170c2-ec78-457e-9fa0-54a23d23361c.webp" group-title="SPORTS",Ten Cricket
 https://stream.ottplus.bd/live/ten_cricket_hd_abr/live/ten_cricket_hd_720/chunks.m3u8
@@ -46,7 +48,7 @@ https://tvsen6.aynaott.com/KGdZEdA7qQ43dmPkgk1j/index.m3u8
 #EXTINF:-1 tvg-logo="https://raw.githubusercontent.com/AsimDipto/Logo-box/refs/heads/main/Bangladesh/gtv-hd-bd.png" group-title="BANGLADESH",GAZI TV
 https://app.ncare.live/c3VydmVyX8RpbEU9Mi8xNy8yMDE0GIDU6RgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcGVMZEJCTEFWeVN3PTOmdFsaWRtaW51aiPhnPTI2/gazibdz.stream/live-orgin/gazibdz.stream/chunks.m3u8?nimblesessionid=1167297915
 #EXTINF:-1 tvg-logo="https://i.imgur.com/ENyPcL0.png" group-title="BANGLADESH",Mohona TV
-https://sm-iptv.sm-monirul-islam-rs.workers.dev/aynaott/mohona_tv/index.m3u8
+https://tvsen6.aynaott.com/AkyX5dunzju4cpo26dr7/index.m3u8
 #EXTINF:-1 tvg-id="deshitv.bd" tvg-logo="https://otapp.store/uploads/tv_image/sm/my-tv.png" group-title="BANGLADESH",MY TV
 https://tvsen6.aynaott.com/XMpHaEf0ANBhv8w6NWR7/index.m3u8
 #EXTINF:-1 tvg-logo="https://otapp.store/uploads/tv_image/sm/sa-tv.png" group-title="BANGLADESH",SATV
