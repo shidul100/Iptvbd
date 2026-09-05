@@ -235,7 +235,7 @@
     "tvg_id": "",
     "logo": "https://otapp.store/uploads/tv_image/sm/nagorik-tv.png",
     "group": "BANGLADESH",
-    "url": "http://premiumtvs.space/live/YqXTywueEV/damp2purchase/3802.ts"
+    "url": "https://box.bbaria.net/Nagorik_TV/tracks-v1a1/mono.m3u8"
   },
   {
     "name": "Anando TV",
@@ -522,7 +522,7 @@
     "tvg_id": "",
     "logo": "https://static.wikia.nocookie.net/logopedia/images/7/7c/HBO_Movies_2025.svg",
     "group": "ENGLISH MOVIES",
-    "url": "http://23.237.104.106:8080/USA_HBO_ZONE/index.m3u8"
+    "url": "http://190.93.191.4:9898/play/a07o/85518027.m3u8"
   },
   {
     "name": "Action Hollywood Movies",
@@ -557,7 +557,7 @@
     "tvg_id": "",
     "logo": "https://i.postimg.cc/0ykfppN3/20240822-231405.png",
     "group": "INDIAN BANGLA",
-    "url": "http://cdn98.com/play/live.php?mac=00%3A1A%3A79%3A99%3A54%3A11&stream=225805&extension=ts&play_token=o1cczsG9wV"
+    "url": "https://da86m1sqpm3o0.cloudfront.net/28072023/smil:starjalsha.smil/chunklist_b1928000.m3u8"
   },
   {
     "name": "Jalsha Movies HD",
@@ -620,14 +620,7 @@
     "tvg_id": "",
     "logo": "https://assets-prod.services.toffeelive.com/f_png,w_300,q_85/KS6x-JQBv9knK3AHwDZy/posters/6594d216-aaca-4eee-b6f5-bbc6b80feb15.webp",
     "group": "DOCUMENTARY",
-    "url": "http://myxpanel.pro:80/live/Ander1/Ander1/694020.ts"
-  },
-  {
-    "name": "Discovery Bangla 2",
-    "tvg_id": "",
-    "logo": "https://assets-prod.services.toffeelive.com/f_png,w_300,q_85/KS6x-JQBv9knK3AHwDZy/posters/6594d216-aaca-4eee-b6f5-bbc6b80feb15.webp",
-    "group": "DOCUMENTARY",
-    "url": "https://jioplaylistdown.yecic62314.workers.dev/live.m3u8?id=573"
+    "url": "http://elitenova.net/live/MAGTF8AV71/bUiJLEJKG5/510485.ts"
   },
   {
     "name": "National Geography HD",
@@ -935,6 +928,6 @@
     "tvg_id": "and_pictures_hd",
     "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-08/images_b29360e9b3bf9d3ce34bd67d06d7c004_playmist_and_pictures_hd_400x400.jpg",
     "group": "HINDI",
-    "url": "https://stream.ottplus.bd/live/and_picture_hd_abr/live/and_picture_hd_720/l_601121_209412000_52353.ts?nimblesessionid=123758089"
+    "url": "https://stream.ottplus.bd/live/and_picture_hd_abr/live/and_picture_hd_720/index.m3u8"
   }
 ]
